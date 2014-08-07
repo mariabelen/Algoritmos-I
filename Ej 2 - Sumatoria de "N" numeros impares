@@ -1,0 +1,22 @@
+// SUMATORIA.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <conio.h>
+#include <iostream>
+
+using namespace std;
+int main()
+{int s, n, i, cont;
+cout << "Ingrese cuantos numeros quiere sumar (n): ";
+cin>> n;
+s=0;
+cont=1;
+for (i=1; i<=n; i++)
+	{s=s+cont;
+	 cont= cont+2;
+	}
+cout<<"La suma es:  "<<s;
+getch();
+return 0;
+}
