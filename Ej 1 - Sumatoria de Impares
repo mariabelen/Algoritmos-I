@@ -14,7 +14,7 @@ cin>> n;
 s=0;
 for (i=1; i<=n; i++)
 	if(i%2!=0)
-		s=s+1;
+		s=s+i;
 cout<<"La suma es:  "<<s;
 getch();
 return 0;
