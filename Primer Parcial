@@ -1,0 +1,212 @@
+#include "stdafx.h"
+#include <conio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <stdio.h>
+#include <iostream>
+#define t 100
+using namespace std;
+bool contar_impares (int n);
+void eliminar_elementos(int vec[], int &n, int posicion);
+void eliminar_mayoria_impares(int vec, int &n);
+void insertar_elementos_ordenados(int vec[], int &n, int elem);
+void mezclar_sin_repetidos(int vec1[], int vec2[], int vec3[], int n, int m, int &tamano);
+void mezclar_con_repetidos(int vec1[], int vec2[], int vec3[], int n, int m, int &tamano);
+
+
+int main ()
+{int i, elem, n, m,tamano, opc, vec[t], vec1[t], vec2[t], vec3[t];
+    do{
+        cout<<endl<<".....M   E    N   U......";
+        cout<<endl<<"1. Eliminar el dato si mas del 50% de los digitos son impares.";
+        cout<<endl<<"2. Insertar dato e ir ordenandolo.";
+        cout<<endl<<"3. Mezclar ascendentemente sin repetición.";
+        cout<<endl<<"4. Mezclar ascendentemente con repetición.";
+        cout<<endl<<"0. Salir.";
+        cout<<endl<<endl<<"INGRESE LA OPCION: ";
+        cin>>opc;
+       
+		switch(opc)
+		{
+            case 1: 
+				cout<<"Ingrese el tamano del vector:  ";
+				cin>>n;
+				for(i=0; i<n; i++)
+					{cout<<"Ingrese el valor de Vec["<<i<<"]: ";
+					 cin>>vec[i];
+					}
+				eliminar_mayoria_impares(vec, tamano);
+                break;
+
+            
+			case 2: 
+				cout<<"Ingrese el tamano del vector:  ";
+				cin>>n;
+				for(i=0; i<n; i++)
+					{cout<<"Ingrese el valor de Vec["<<i<<"]: ";
+					 cin>>vec[i];
+					}
+				cout<<"Ingrese el siguente elemento";
+					 cin>>elem;
+					 insertar_elementos_ordenados(vec, n, elem);
+                break;
+           
+			
+			case 3: 
+				cout<<"Ingrese el tamano del vector:  ";
+				cin>>n;
+				for(i=0; i<n; i++)
+					{cout<<"Ingrese el valor de Vec["<<i<<"]: ";
+					 cin>>vec1[i];
+					}
+				cout<<"Ingrese el tamano del otro vector:  ";
+				cin>>m;
+				for(i=0; i<m; i++)
+					{cout<<"Ingrese el valor de Vec["<<i<<"]: ";
+					 cin>>vec2[i];
+					}
+				mezclar_sin_repetidos(vec1, vec2, vec3, n, m, tamano);
+                break;
+            
+			
+			case 4: 
+				cout<<"Ingrese el tamano del vector:  ";
+				cin>>n;
+				for(i=0; i<n; i++)
+					{cout<<"Ingrese el valor de Vec["<<i<<"]: ";
+					 cin>>vec1[i];
+					}
+				cout<<"Ingrese el tamano del otro vector:  ";
+				cin>>m;
+				for(i=0; i<m; i++)
+					{cout<<"Ingrese el valor de Vec["<<i<<"]: ";
+					 cin>>vec2[i];
+					}
+				mezclar_con_repetidos(vec1, vec2, vec3, n, m, tamano);
+                break;
+            
+		}
+		}while(opc!=0);
+	getch();
+	return (0);
+
+}
+
+bool contar_impares (int n)
+{int cont=0, conta=0, d;
+ d=n%10;
+ if(d%2!=0)
+	{cont=cont+1;
+    }
+ conta=conta+1;
+ n=n/10;
+ if(cont>conta/2)
+	{return (true);
+	}
+ else
+	{return (false);
+	}
+ }
+
+void eliminar_elementos(int vec[], int &n, int posicion)
+{int i;
+for(i=posicion; i<n-1; i++)
+	{vec[i]=vec[i+2];
+	}
+n=n-1;
+}
+
+
+void eliminar_mayoria_impares(int vec[], int &n)
+{int i;
+ for(i=0; i<n; i++)
+	{if((contar_impares)==false)
+		{eliminar_elementos(vec, n, i);
+		i=i-1;
+		}
+	 }
+}
+
+void insertar_elementos_ordenados(int vec[], int &n, int elem)
+{int i, posicion;
+ posicion=n;
+ for(i=0; i<n; i++)
+	{if(vec[i]>elem)
+		{posicion=i;
+		 break;
+		}
+	}
+for(i=0; i>posicion; i--)
+	{vec[i]=vec[i-1];
+	}
+vec[posicion]=elem;
+n=n+1;
+}
+
+void mezclar_sin_repetidos(int vec1[], int vec2[], int vec3[], int n, int m, int &tamano)
+{int i=0, j=0;
+while(i<n && j<m)
+	{if(vec1[i]<vec2[j])
+		{vec3[tamano]=vec1[i];
+		tamano=tamano+1;
+		i=i+1;
+		}	
+	 if(vec2[j]<vec1[i])
+		{vec3[tamano]+vec2[j];
+		 tamano=tamano+1;
+		 j=j+1;
+		}
+	  if(vec1[i]==vec2[j])
+		{vec3[tamano]=vec2[j];
+		 tamano=tamano+1;
+		 j=j+1;
+		}
+	}
+while(i<n)
+	{vec3[tamano]=vec1[i];
+	 i=i+1;
+	 tamano=tamano+1;
+	}
+while(j<m)
+	{vec3[tamano]=vec2[j];
+	  j=j+1;
+	 tamano=tamano+1;
+	}
+}
+
+void mezclar_con_repetidos(int vec1[], int vec2[], int vec3[], int n, int m, int &tamano)
+{int i=0, j=0;
+while(i<n && j<m)
+	{if(vec1[i]<vec2[j])
+		{vec3[tamano]=vec1[i];
+		tamano=tamano+1;
+		i=i+1;
+		}	
+	 if(vec2[j]<vec1[i])
+		{vec3[tamano]+vec2[j];
+		 tamano=tamano+1;
+		 j=j+1;
+		}
+	  if(vec1[i]==vec2[j])
+		{vec3[tamano]=vec1[i];
+		 tamano=tamano+1;
+		 i=i+1;
+		}
+	  if(vec1[i]==vec2[j])
+		{tamano=tamano+1;
+		 i=i+1;
+		}
+	}
+while(i<n)
+	{vec3[tamano]=vec1[i];
+	 i=i+1;
+	 tamano=tamano+1;
+	}
+while(j<m)
+	{vec3[tamano]=vec2[j];
+	  j=j+1;
+	 tamano=tamano+1;
+	}
+}
+
+
