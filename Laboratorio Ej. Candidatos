@@ -1,0 +1,90 @@
+#include "stdafx.h"
+#include "conio.h"
+#include <string>
+#include <stdlib.h>
+#include <stdio.h>
+#include <iostream>
+
+using namespace std;
+
+struct Distrito
+{
+string candidato1;
+long vot1;
+string candidato2;
+long vot2;
+string candidato3;
+long vot3;
+};
+FILE *pf = NULL;
+ 
+void leeRegistro(Distrito &d);
+int contarVotos(Distrito &d);
+
+int main ( )
+{
+Distrito d;
+int termina;
+pf = fopen ("Petanca.dat", "ab");
+if (pf == NULL)
+{
+cout<<"No se puede crear el archivo.";
+return -1;
+}
+cout<<"Ingrese los nombres de los candidatos: ";
+cout<<endl<<"Ingrese el nombre del Candidato 1: ";
+getline(cin, d.candidato1);
+cout<<endl<<"Ingrese el nombre del Candidato 2: ";
+getline(cin, d.candidato2);
+cout<<endl<<"Ingrese el nombre del Candidato 3: ";
+getline(cin, d.candidato3);
+termina = 0;
+cout<<endl<<"Introducir los votos de cada candidato, termina con 0 0 0";
+do {
+leeRegistro (d);
+if ( (d.vot1 == 0) && (d.vot2 == 0) && (d.vot3 == 0))
+{
+termina = 1;
+cout<<"Fin del proceso. Se cierra el archivo";
+}
+else
+fwrite(&d, sizeof(Distrito), 1, pf);
+} while (!termina);
+fclose(pf);
+}
+
+void leeRegistro(Distrito &d)
+{
+cout<<endl<<"Votos para : "<<d.candidato1;
+cin>>d.vot1;
+cout<<endl<<"Votos para : "<<d.candidato2;
+cin>>d.vot2;
+cout<<endl<<"Votos para : "<<d.candidato3;
+cin>>d.vot3;
+}
+
+
+int contarVotos(Distrito &d)
+{int votos[3] = {0,0,0};
+pf = fopen("Petanca.h", "rb");
+if (pf == NULL)
+{
+cout<<"No se puede leer el archivo.";
+return 0;
+}
+fread (&d, sizeof(Distrito),1, pf);
+while (!feof(pf))
+{
+votos[0] += d.vot1;
+votos[1] += d.vot2;
+votos[2] += d.vot3;
+fread(&d, sizeof(Distrito),1, pf);
+}
+fclose(pf);
+cout<<"\n\tVOTOS DE CADA CANDIDATO\n";
+cout<<d.candidato1<<"="<<votos[0];
+cout<<d.candidato2<<"="<<votos[1];
+cout<<d.candidato3<<"="<<votos[2];
+getch();
+return 0;
+}
