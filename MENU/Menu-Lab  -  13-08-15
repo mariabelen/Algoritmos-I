@@ -1,0 +1,64 @@
+MARIA BELEN MENACHO ANTELO   ////   2012112617  ///  13-08-2015
+
+// MENU.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include "stdlib.h"
+#include "stdio.h"
+#include <iostream>
+#include <conio.h>
+ using namespace std;
+
+void main()
+{float lado, n1, n2, n3, area, prom, a, b;
+int opcion;
+do{
+cout<<endl<<"************  M  E  N  U  ***************";
+cout<<endl<<"1.-Area del cuadrado";
+cout<<endl<<"2.-Promedio de 3 numeros";
+cout<<endl<<"3.-Mayor de 2 numeros";
+cout<<endl<<"0.-SALIR";
+cout<<endl<<"Ingrese su opcion:  ";
+cin>>opcion;
+switch (opcion)
+	{
+		case 1:  
+			cout<<"Ingrese el lado del cuadrado:  ";
+			cin>>lado;
+			area=lado*lado;
+			cout<<"El area del cuadrado es:  "<<area;
+				break;
+
+		case 2:
+			cout<<"Ingrese el primer numero:  ";
+			cin>>n1;
+			cout<<"Ingrese el segundo numero:  ";
+			cin>>n2;
+			cout<<"Ingrese el tercer numero:  ";
+			cin>>n3;
+			prom=(n1+n2+n3)/3;
+			cout<<"El promedio de los numeros es:  "<<prom;
+				break;
+
+		case 3:  
+			cout<<"Ingrese el primer numero:  ";
+			cin>>a;
+			cout<<"Ingrese el segundo numero:  ";
+			cin>>b;
+				if(a>b)
+				{cout<<"El numero mayor es:  "<<a;
+				}
+				else
+				{cout<<"El numero mayor es:  "<<b;
+				}
+				break;
+		 default:
+     cout<<"Opcion incorrecta";
+	}
+system("cls");
+		}while(opcion != 0);
+
+getch();
+}
+
