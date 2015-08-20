@@ -1,0 +1,40 @@
+// PLANILLA ZONA DE CONTROL.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include "stdlib.h"
+#include "stdio.h"
+#include <iostream>
+#include "conio.h"
+using namespace std;
+
+void main()
+{int i=0;
+char respuesta;
+float afp=0.121, iva=0.13, sm=1420, promedio, sb, suma=0, sn;
+do
+{cout<<endl<<"Ingrese el salario bruto del empleado:  ";
+cin>>sb;
+if(sb>=2*sm)
+		{sn= sb-((sb*afp)+(sb*iva));
+		suma=suma+sn;
+		}
+	
+	else
+		{if(sb>=2*sm && sb<=15000)
+			{sn= sb-((sb*afp)+(sb*iva));
+			suma=suma+sn;
+			}
+		 else
+			{sn=sb-((sb*afp)+(sb*iva)+(sb*0.01));
+			suma=suma+sn;
+			}
+		 }
+	i++;
+	cout<<endl<<"Desea continuar ingresando salarios?? <s> para continuar:   ";
+	cin>>respuesta;
+}while(respuesta == 's');
+	promedio=suma/i;
+	cout<<endl<<"El promedio de los salarios netos de "<<i<<"  empleados es:  "<<promedio;
+	getch();
+}
