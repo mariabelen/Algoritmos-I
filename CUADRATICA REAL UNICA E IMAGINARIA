@@ -1,0 +1,53 @@
+// Cuadratica.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#include "math.h"
+
+using namespace std;
+
+void cuadratica ( float a, float b, float c, float &x1, float &x2);
+float discriminante ( float a, float b, float c);
+
+void main()
+{float a, b, c, x1, x2, d;
+cout<<endl<<"Ingrese el valor de a: ";
+cin>>a;
+cout<<endl<<"Ingrese el valor de b: ";
+cin>>b;
+cout<<endl<<"Ingrese el valor de c: ";
+cin>>c;
+
+if(discriminante(a, b, c)>0)
+	 { cuadratica(a, b, c, x1, x2);
+	   cout<<endl<<"X1= "<<x1;
+	   cout<<endl<<"X2= "<<x2;
+	 }
+else
+	{  if(discriminante(a, b, c) == 0)
+			 { x1= -b/(2*a);
+			 } 
+		else
+			{ cout<<endl<<"X1= "<<-b/(2*a)<<"+"<<sqrt(-((b*b)-(4*a*c)))/(2*a)<<" i ";
+			  cout<<endl<<"X2= "<<-b/(2*a)<<"-"<<sqrt(-((b*b)-(4*a*c)))/(2*a)<<" i ";
+			}
+	}
+
+getch();
+}
+
+float discriminante ( float a, float b, float c)
+{float d;
+d=(b*b)-(4*a*c);
+return (d);
+}
+
+
+void cuadratica ( float a, float b, float c, float &x1, float &x2)
+{
+x1=(-b + sqrt((b*b)-(4*a*c)))/(2*a);
+x2=(-b - sqrt((b*b)-(4*a*c)))/(2*a);
+}
+
