@@ -1,0 +1,110 @@
+// 3er parcial.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include "stdio.h"
+#include <conio.h>
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+struct  regamigo
+{
+int idamigo;
+char nombre[30];
+int edad;
+};
+
+void crear()
+{FILE *archivo;
+regamigo registro;
+archivo=fopen("Amigos.dat","wb");
+fclose(archivo);
+}
+
+void cargar()
+{FILE *archivo;
+regamigo registro;
+archivo=fopen("Amigos.dat","wb");
+cout<<"Ingrese el Id del amigo: ";
+cin>>registro.idamigo;
+cout<<"Ingrese el Nombre: ";
+cin>>registro.nombre;
+cout<<"Ingrese la Edad: ";
+cin>>registro.edad;
+fwrite(&registro, sizeof(regamigo), 1, archivo);	
+fclose(archivo);
+}
+
+
+int obtener_cant_reg ()
+{FILE *archivo;
+regamigo registro;
+archivo=fopen("Amigos.dat","rb+");
+int cantidad=0;
+if(archivo != NULL)
+	{cout<<"No se puede abrir el archivo "; 
+	}
+else
+	{fread(&registro, sizeof(regamigo), 1, archivo);
+	cantidad ++;
+	while(!feof(archivo))
+		{fread(&registro, sizeof(regamigo), 1, archivo);
+		 cantidad ++;
+		}
+	fclose(archivo);
+	}
+return(cantidad);
+}
+
+
+void listar()
+{FILE *archivo;
+regamigo registro;
+archivo=fopen("Amigos.dat","rb+");
+if(archivo != NULL)
+	{fwrite(&registro, sizeof(regamigo), 1, archivo);
+	 while(feof(archivo) == false)
+		 {cout<<registro.idamigo<<"  "<<registro.nombre<<"  "<<registro.edad;
+		  fwrite(&registro, sizeof(regamigo), 1, archivo);
+		 }
+    }
+else
+	{cout<<"El archivo no existe";
+	}
+}
+
+
+void main()
+{FILE *archivo;
+regamigo registro, registro_A, registro_B, registro_aux;
+crear();
+cargar();
+archivo=fopen("Amigos.dat","rb+");
+if(archivo != NULL)
+	{int cant_regs=obtener_cant_reg();
+	 for(int i=0; i<cant_regs; i++)
+		{for(int j=0; j<cant_regs; j++)
+			{fseek(archivo, sizeof(regamigo)*j, SEEK_SET);
+			 fread(&registro_A, sizeof(regamigo), 1, archivo);
+			 fseek(archivo, sizeof(regamigo)*j+1, SEEK_SET);
+		     fread(&registro_B, sizeof(regamigo), 1, archivo);
+			 if(registro_A.edad > registro_B.edad)
+				 {if(strcmp(registro_A.nombre, registro_B.nombre) >0) 
+					{registro_aux = registro_A;
+					 registro_A = registro_B;
+					 registro_B = registro_aux;
+					 fseek(archivo, sizeof(regamigo)*j, SEEK_SET);
+					 fwrite(&registro_A, sizeof(regamigo), 1, archivo);	
+					 fseek(archivo, sizeof(regamigo)*j+1, SEEK_SET);
+					 fwrite(&registro_B, sizeof(regamigo), 1, archivo);	
+					}
+			 	 }
+	  		}
+	 	}
+	listar();
+	 fclose(archivo);
+	}
+}
+
